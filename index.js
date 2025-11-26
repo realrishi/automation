@@ -1,21 +1,15 @@
 require('dotenv').config();
 const express = require("express");
-
-// 🔥 REQUIRED for Render/Vercel serverless
-const chrome = require("chrome-aws-lambda");
-const { chromium } = require("playwright-core");
+const { chromium } = require("playwright");
 
 const EMAIL = process.env.NAUKRI_EMAIL;
 const PASSWORD = process.env.NAUKRI_PASSWORD;
 
 async function runOnce() {
-  // 🔥 Serverless-compatible executable path
-  const executablePath = await chrome.executablePath;
-
+  // Use Playwright with Render-friendly args
   const browser = await chromium.launch({
-    headless: true,                         // serverless requires headless
-    executablePath,                         // critical change
-    args: chrome.args,                      // required args for AWS/Render
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--ignore-certificate-errors"],
     ignoreHTTPSErrors: true
   });
 
