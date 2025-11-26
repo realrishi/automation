@@ -1,15 +1,24 @@
 require('dotenv').config();
 const express = require("express");
-const { chromium } = require("playwright");
+
+// 🔥 REQUIRED for Render/Vercel serverless
+const chrome = require("chrome-aws-lambda");
+const { chromium } = require("playwright-core");
 
 const EMAIL = process.env.NAUKRI_EMAIL;
 const PASSWORD = process.env.NAUKRI_PASSWORD;
 
 async function runOnce() {
+  // 🔥 Serverless-compatible executable path
+  const executablePath = await chrome.executablePath;
+
   const browser = await chromium.launch({
-    headless: false,
-    args: ["--ignore-certificate-errors"]
+    headless: true,                         // serverless requires headless
+    executablePath,                         // critical change
+    args: chrome.args,                      // required args for AWS/Render
+    ignoreHTTPSErrors: true
   });
+
   const context = await browser.newContext();
   const page = await context.newPage();
 
@@ -17,6 +26,7 @@ async function runOnce() {
     console.log("Opening login page...");
     await page.goto("https://www.naukri.com/nlogin/login", {
       timeout: 60000,
+      waitUntil: "domcontentloaded",
       ignoreHTTPSErrors: true
     });
 

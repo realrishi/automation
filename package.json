@@ -4,8 +4,7 @@
   "description": "Naukri automation with Node.js, Express, and Playwright",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "postinstall": "playwright install --with-deps chromium"
+    "start": "node index.js"
   },
   "keywords": ["automation", "naukri", "playwright", "express"],
   "author": "Your Name",
@@ -15,7 +14,8 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "playwright": "^1.57.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "playwright-core": "^1.57.0",
+    "chrome-aws-lambda": "^10.1.0"
   }
 }
