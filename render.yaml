@@ -7,11 +7,8 @@ services:
     buildCommand: npm install
     startCommand: node index.js
     envVars:
+      - fromGroup: naukri
       - key: NAUKRI_EMAIL
-        fromSecret: NAUKRI_EMAIL
-      - key: NAUKRI_PASSWORD
-        fromSecret: NAUKRI_PASSWORD
-      - key: ENABLE_INTERVAL
         value: "true"
-      - key: RUN_ON_START
+      - key: NAUKRI_PASSWORD
         value: "true"
