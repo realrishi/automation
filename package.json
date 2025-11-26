@@ -1,0 +1,20 @@
+{
+  "name": "my-automation",
+  "version": "1.0.0",
+  "description": "Naukri automation with Node.js, Express, and Playwright",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["automation", "naukri", "playwright", "express"],
+  "author": "Your Name",
+  "license": "ISC",
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "playwright": "^1.57.0",
+    "dotenv": "^16.3.1"
+  }
+}
