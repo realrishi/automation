@@ -2,9 +2,11 @@ services:
   - type: web
     name: naukri-automation
     env: node
-    branch: main
     plan: free
-    buildCommand: "npm install"
+    branch: main
+    buildCommand: |
+      npm install
+      npx playwright install chromium
     startCommand: "node index.js"
     envVars:
       - fromGroup: naukri
