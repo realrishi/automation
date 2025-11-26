@@ -5,8 +5,12 @@ services:
     plan: free
     branch: main
     buildCommand: |
+      # Ensure browsers are installed locally in node_modules
+      export PLAYWRIGHT_BROWSERS_PATH=0
       npm install
-      node node_modules/playwright/install.js chromium
+      npx playwright install --with-deps
     startCommand: node index.js
     envVars:
       - fromGroup: naukri
+      - key: PLAYWRIGHT_BROWSERS_PATH
+        value: 0
