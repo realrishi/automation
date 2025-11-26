@@ -4,7 +4,8 @@
   "description": "Naukri automation with Node.js, Express, and Playwright",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+     "postinstall": "npx playwright install chromium"
   },
   "keywords": ["automation", "naukri", "playwright", "express"],
   "author": "Your Name",
