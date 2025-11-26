@@ -6,13 +6,10 @@ const EMAIL = process.env.NAUKRI_EMAIL;
 const PASSWORD = process.env.NAUKRI_PASSWORD;
 
 async function runOnce() {
-  // Use Playwright with Render-friendly args
   const browser = await chromium.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--ignore-certificate-errors"],
-    ignoreHTTPSErrors: true
+    headless: false,
+    args: ["--ignore-certificate-errors"]
   });
-
   const context = await browser.newContext();
   const page = await context.newPage();
 
@@ -20,7 +17,6 @@ async function runOnce() {
     console.log("Opening login page...");
     await page.goto("https://www.naukri.com/nlogin/login", {
       timeout: 60000,
-      waitUntil: "domcontentloaded",
       ignoreHTTPSErrors: true
     });
 
