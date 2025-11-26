@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: naukri-automation
+    env: node
+    branch: main
+    plan: free
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: NAUKRI_EMAIL
+        fromSecret: NAUKRI_EMAIL
+      - key: NAUKRI_PASSWORD
+        fromSecret: NAUKRI_PASSWORD
+      - key: ENABLE_INTERVAL
+        value: "true"
+      - key: RUN_ON_START
+        value: "true"
