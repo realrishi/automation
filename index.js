@@ -1,11 +1,20 @@
 require('dotenv').config();
 const express = require("express");
-const { chromium } = require("playwright");
+const { chromium, installBrowsers } = require("playwright");
 
 const EMAIL = process.env.NAUKRI_EMAIL;
 const PASSWORD = process.env.NAUKRI_PASSWORD;
 
+// Ensure browsers are installed inside node_modules
+async function ensureBrowsers() {
+  console.log("Checking Playwright browsers...");
+  // await installBrowsers(["chromium"]); // installs Chromium if missing
+  console.log("Playwright browsers ready.");
+}
+
 async function runOnce() {
+  await ensureBrowsers(); // Make sure browser is available
+
   const browser = await chromium.launch({
     headless: false,
     args: ["--ignore-certificate-errors"]
@@ -55,7 +64,7 @@ async function runOnce() {
     });
     await profilePage.waitForURL(/mnjuser\/profile\?action=modalOpen/i, { timeout: 30000 });
 
-    console.log("Locating Edit icon (editOneTheme)...");
+    console.log("Locating Edit icon...");
     const editIcon = profilePage.locator("em.icon.edit").filter({ hasText: /editOneTheme/i });
 
     let clicked = false;
@@ -116,7 +125,7 @@ async function runOnce() {
       } catch {
         const htmlSnippets = await profilePage.locator("em.icon.edit").evaluateAll(nodes => nodes.map(n => n.outerHTML));
         console.log("Edit icons found (outerHTML):", htmlSnippets);
-        throw new Error("Edit icon (editOneTheme) not clickable.");
+        throw new Error("Edit icon not clickable.");
       }
     }
 
